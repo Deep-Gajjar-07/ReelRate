@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+    {% comment %} showing all available movies from DB in cards {% endcomment %}
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for movie in movies %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{{ movie.poster.url }}" class="card-img-top" style="height: 350px;"
+                    alt="{{ movie.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.title }}</h5>
+                        <p class="card-text text-muted">{{ movie.genre }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
