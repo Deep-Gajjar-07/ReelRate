@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}" style="height: 20rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ movie.title }}</h4>
+                        <div class="d-flex mt-3 justify-content-between">
+                            <p class="muted">Avg Rating</p>
+                            <p class="fst-italic">{{ avg_rating|default:"No ratings yet" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <!-- movie description and other info-->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">{{ movie.genre }} • {{ movie.release_year }}</h6>
+                        <p class="card-text">
+                            {{ movie.description }}</p>
+                    </div>
+                </div>
+
+                <!-- reviews -->
+                <div class="card p-4">
+                    <h5>Reviews:</h5>
+                    <hr class="mb-4">
+                    {% for review in reviews %}
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-medium">{{ review.user.username }}</span>
+                            <span class="text-warning">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <i class="bi bi-star-fill"></i>
+                                    {% else %}
+                                        <i class="bi bi-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                        </div>
+                        <p class="muted small mt-2 mb-1">{{ review.review }}</p>
+                    {% empty %}
+                        <p class="lead text-muted fst-italic fs-5 text-center">No reviews yet. Be the first!</p> 
+                    {% endfor %} 
+                </div> 
+
+                <!-- write review -->
+                
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

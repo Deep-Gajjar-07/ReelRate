@@ -5,17 +5,18 @@
 {% block content %}
 
     {% comment %} showing all available movies from DB in cards {% endcomment %}
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="row row-cols-md-5 row-cols-sm-2 row-cols-lg-5 gap-2">
         {% for movie in movies %}
             <div class="col">
-                <div class="card h-100">
-                    <img src="{{ movie.poster.url }}" class="card-img-top" style="height: 350px;"
-                    alt="{{ movie.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ movie.title }}</h5>
-                        <p class="card-text text-muted">{{ movie.genre }}</p>
+                <a href="{% url "movie_detail" movie.id %}" style="text-decoration: none;">
+                    <div class="card h-100" style="width: 18rem;">
+                        <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}" style="height: 15rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ movie.title }}</h5>
+                            <span class="badge text-white px-4 py-2 text-wrap mt-2" style="background-color: violet; border-radius: 5px;">{{ movie.genre }}</span>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         {% endfor %}
     </div>
