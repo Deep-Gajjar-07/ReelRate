@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .models import Movie
+from .models import Movie, Review
 
 # view for show all movies in home page
 def index(request):
@@ -76,3 +76,19 @@ def user_profile(request):
         'total_reviews': total_reviews,
         'user_avg_rating': user_avg_rating,
     })
+
+@login_required
+def movie_review(request, id):
+    movie = get_object_or_404(Movie, id=id)
+
+    if request.method == 'POST':
+        rating = request.POST['rating']
+        review = request.POST['review']
+
+        if Review.objects.filter(movie=movie, user=request.user).exists():
+            return redirect("movie_detail", id=id)
+        else:
+            Review.objects.create(movie=movie, user=request.user, rating=rating, review=review)
+            return redirect("movie_detail", id=id)
+        
+    return redirect("movie_detail", id=id)
