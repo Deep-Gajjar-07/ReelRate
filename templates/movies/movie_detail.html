@@ -32,7 +32,7 @@
                 <!-- reviews -->
                 <div class="card p-4">
                     <h5>Reviews:</h5>
-                    <hr class="mb-4">
+                    <hr class="mb-4 mt-2">
                     {% for review in reviews %}
                         <div class="d-flex justify-content-between">
                             <span class="fw-medium">{{ review.user.username }}</span>
@@ -46,7 +46,7 @@
                                 {% endfor %}
                             </span>
                         </div>
-                        <p class="muted small mt-2 mb-1">{{ review.review }}</p>
+                        <p class="muted small mt-2 mb-4">{{ review.review }}</p>
                     {% empty %}
                         <p class="lead text-muted fst-italic fs-5 text-center">No reviews yet. Be the first!</p> 
                     {% endfor %} 

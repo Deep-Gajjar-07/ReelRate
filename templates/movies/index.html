@@ -5,7 +5,7 @@
 {% block content %}
 
     {% comment %} showing all available movies from DB in cards {% endcomment %}
-    <div class="row d-flex row-cols-md-4 row-cols-sm-2 row-cols-lg-5">
+    <div class="row m-4 d-flex row-cols-md-4 row-cols-sm-2 row-cols-lg-5">
         {% for movie in movies %}
             <div class="col mb-3">
                 <a href="{% url "movie_detail" movie.id %}" style="text-decoration: none;">
