@@ -11,4 +11,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name="logout"),
     path('profile/', views.user_profile, name="profile_page"),
     path('my-reviews/', views.user_reviews_list, name="user_review_page"),
+    path('edit-reviews/<int:pk>/', views.edit_review, name="edit_review"),
+    path('delete-reviews/<int:pk>/', views.delete_review, name="delete_review"),
 ]

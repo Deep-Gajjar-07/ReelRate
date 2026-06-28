@@ -16,7 +16,7 @@ def index(request):
 # for showing single movie detail with desc & reviews:
 def movie_detail(request, id):
     movie = get_object_or_404(Movie, pk=id)
-    reviews = movie.reviews.all()
+    reviews = movie.reviews.all().order_by('-id')
     avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
     return render(request, 'movies/movie_detail.html', {
         'movie': movie,
@@ -102,3 +102,28 @@ def user_reviews_list(request):
     return render(request, 'movies/user_review_list.html', {
         'reviews': reviews,
     })
+
+# auth user can edit there reviews:
+@login_required
+def edit_review(request, pk):
+    review = get_object_or_404(Review, pk=pk, user=request.user)
+
+    if request.method == 'POST':
+        review.rating = request.POST['rating']
+        review.review = request.POST['review']
+        review.save()
+
+        return redirect('user_review_page')
+    return render(request, 'movies/edit_review.html', {
+        'review': review
+    })
+
+# delete users review:
+@login_required
+def delete_review(request, pk):
+    review = get_object_or_404(Review, pk=pk, user=request.user)
+    if request.method == 'POST':
+        review.delete()
+        return redirect('user_review_page')
+    
+    return render(request, 'movies/delete_review.html', {'review': review})
