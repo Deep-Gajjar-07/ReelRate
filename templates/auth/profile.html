@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-sm p-4">
+
+                    <h4 class="fs-4">Profile</h4>
+                    <hr class="mb-4 mt-0">
+
+                    <div class="mb-3 d-flex">
+                        <p class="text-muted fst-italic">Username:</p>
+                        <p class="ms-3 mb-0">{{ user.username }}</p>
+                    </div>
+
+                    <div class="mb-3 d-flex">
+                        <p class="text-muted fst-italic">Email:</p>
+                        <p class=" ms-3 mb-0">{{ user.email }}</p>
+                    </div>
+
+                    <div class="mb-3 d-flex">
+                        <p class="text-muted fst-italic">Joined On:</p>
+                        <p class="mb-0 ms-3 ">{{ user.date_joined|date:"d M Y" }}</p>
+                    </div>
+
+                    <div class="container d-flex justify-content-between">
+                        <div class="card col-md-6 p-3">
+                            <h3 class="fs-6 fst-italic">Total Reviews Written</h3>
+                            <p class="mb-0 fs-2 lead ms-3">{{ total_reviews }}</p>
+                        </div>
+                        <div class="card col-md-5 p-3">
+                            <h3 class="fs-6 fst-italic">Total Average Rating</h3>
+                            <p class="mb-0 lead fs-2 ms-3">{{ user_avg_rating|default:"0.0" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

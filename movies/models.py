@@ -20,7 +20,7 @@ class Movie(models.Model):
 # for write review by user:
 class Review(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
     rating = models.IntegerField(default=0, choices=[(i,i) for i in range(1, 6)])
     review = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Avg
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from .models import Movie
 
@@ -64,3 +65,14 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home_page')
+
+# showing user profile details:
+@login_required
+def user_profile(request):
+    total_reviews = request.user.reviews.count()
+    user_reviews = request.user.reviews.all()
+    user_avg_rating = user_reviews.aggregate(Avg('rating'))['rating__avg']
+    return render(request, 'auth/profile.html', {
+        'total_reviews': total_reviews,
+        'user_avg_rating': user_avg_rating,
+    })
