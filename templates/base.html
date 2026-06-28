@@ -22,7 +22,7 @@
                 <div class="d-flex justify-content-center navbar-nav">
                     <a class="nav-link" href="#">Browse Movies</a>
                     {% if request.user.is_authenticated %}
-                        <a class="nav-link" href="#">Your Reviews</a>
+                        <a class="nav-link" href="{% url "user_review_page" %}">My Reviews</a>
                         <a class="btn btn-info px-4 ms-3" href="{% url "profile_page" %}">Profile</a>
                         <button type="button" class="btn btn-danger px-3 mx-3" data-bs-toggle="modal" data-bs-target="#logoutModel">
                         Logout

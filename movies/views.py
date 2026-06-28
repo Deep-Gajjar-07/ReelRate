@@ -77,6 +77,7 @@ def user_profile(request):
         'user_avg_rating': user_avg_rating,
     })
 
+# view for auth user can write review
 @login_required
 def movie_review(request, id):
     movie = get_object_or_404(Movie, id=id)
@@ -92,3 +93,12 @@ def movie_review(request, id):
             return redirect("movie_detail", id=id)
         
     return redirect("movie_detail", id=id)
+
+# user can see all there reviews in list:
+@login_required
+def user_reviews_list(request):
+    reviews = Review.objects.filter(user=request.user)
+
+    return render(request, 'movies/user_review_list.html', {
+        'reviews': reviews,
+    })

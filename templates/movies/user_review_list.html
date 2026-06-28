@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}My Reviews{% endblock %}
+
+{% block content %}
+
+    <div class="container py-2">
+
+    <h5 class="fs-4">My Reviews:</h5>
+        <hr class="mb-3">
+
+        <ul class="list-group list-group-flush">
+            {% for review in reviews %}
+            <div class="card mb-3 p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="fw-medium mb-0">
+                        <a href="{% url 'movie_detail' review.movie.pk %}" style="text-decoration: none;">{{ review.movie.title }}</a>
+                    </h6>
+                        <span class="text-warning">
+                            {% for i in "12345" %}
+                            {% if forloop.counter <= review.rating %}
+                            <i class="bi bi-star-fill"></i>
+                            {% else %}
+                            <i class="bi bi-star"></i>
+                            {% endif %}
+                            {% endfor %}
+                        </span>
+                </div>
+                <p class="small fst-italic text-muted mt-2">At: {{ review.created_at }}</p>
+                <p class="muted small">{{ review.review }}</p>
+            </div>
+            {% empty %}
+                <p class="lead text-muted fst-italic fs-5 text-center">You haven't written any review yet!</p> 
+            {% endfor %}
+        </ul>
+
+    </div>
+
+{% endblock %}
