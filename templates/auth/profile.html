@@ -34,7 +34,7 @@
                         </div>
                         <div class="card col-md-5 p-3">
                             <h3 class="fs-6 fst-italic">Total Average Rating</h3>
-                            <p class="mb-0 lead fs-2 ms-3">{{ user_avg_rating|default:"0.0" }}</p>
+                            <p class="mb-0 lead fs-2 ms-3">{{ user_avg_rating|default:"0.0"|floatformat:1 }}</p>
                         </div>
                     </div>
                 </div>

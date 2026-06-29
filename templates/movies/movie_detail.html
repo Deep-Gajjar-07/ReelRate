@@ -14,7 +14,7 @@
                         <h4 class="card-title">{{ movie.title }}</h4>
                         <div class="d-flex mt-3 justify-content-between">
                             <p class="muted">Avg Rating</p>
-                            <p class="fst-italic">{{ avg_rating|default:"No ratings yet" }}</p>
+                            <p class="fst-italic">{{ avg_rating|default:"No ratings yet"|floatformat:1 }}</p>
                         </div>
                     </div>
                 </div>
