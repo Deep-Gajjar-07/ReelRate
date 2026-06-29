@@ -124,3 +124,6 @@ STATIC_URL = 'static/'
 # media file configuration for movie posters.
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+LOGIN_URL = 'login_page'
