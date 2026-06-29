@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Movies{% endblock %}
+
+{% block content %}
+
+    <div class="container px-2 m-0">
+        <div class="row g-4">
+
+            {% comment %} left: search & filters {% endcomment %}
+            <div class="col-md-3">
+                <div class="p-3 shadow">
+                    <h5 class="fs-5 mt-2">Search Movies</h5>
+                    <hr class="mt-2 mb-3">
+                    <form method="GET">
+                        <input type="text" name="query" class="form-control" placeholder="Search movies..." value="{{ query }}">
+                        <button type="submit" class="btn btn-warning mt-2 px-4 py-1">Search</button>
+                    </form>
+
+                    <hr class="mt-4 mb-2">
+                    <div class="d-flex mb-3 justify-content-between align-items-baseline">
+                        <h5 class="fs-5">Genres</h5>
+                        <a href="{% url "browse_movies" %}" type="submit" class="btn btn-primary py-1"><i class="bi bi-filter"></i> Clear Filters</a>
+                    </div>
+
+                    <ul class="list-group">
+                        {% for genre in genres %}
+                            <li class="list-group-item list-group-item-action
+                            {% if genre.id == genre_id %}active{% endif %}">
+                                <a href="{% url "browse_movies" %}?query={{ query }}&genre={{ genre.id }}" style="text-decoration: none;">
+                                    {{ genre }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            {% comment %} right: movie list {% endcomment %}
+            <div class="col">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <p class="text-muted mb-0">{{ movies.count }} movie{{ movies.count|pluralize }} found</p>
+                </div>
+
+                {% if movies %}
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4">
+                        {% for movie in movies %}
+                            <div class="col mb-3">
+                                <a href="{% url "movie_detail" movie.id %}" style="text-decoration: none;">
+                                    <div class="card h-100" style="width: 15rem;">
+                                        <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}" style="height: 15rem;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ movie.title }}</h5>
+                                            <span class="badge text-white px-4 py-2 text-wrap mt-2" style="background-color: violet; border-radius: 5px;">{{ movie.genre }}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted py-5 lead text-center fs-4">No Movies Found!!!</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

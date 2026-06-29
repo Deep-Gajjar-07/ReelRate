@@ -23,11 +23,9 @@
                         <input type="password" name="password" class="form-control" placeholder="Your Password" required>
                     </div>
 
-                    {% if form.errors %}
+                    {% if errors %}
                         <div class="alert alert-danger py-2">
-                            {% for field in form %}
-                                {{ field.errors }}
-                            {% endfor %}
+                            {{ errors }}
                         </div>
                     {% endif %}
 

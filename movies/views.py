@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .models import Movie, Review
+from .models import Movie, Review, Genre
 
 # view for show all movies in home page
 def index(request):
@@ -22,6 +22,26 @@ def movie_detail(request, id):
         'movie': movie,
         'reviews': reviews,
         'avg_rating': avg_rating,
+    })
+
+#view for browse movies from website:
+def browse_movies(request):
+    query = request.GET.get('query', '')
+    genre_id = request.GET.get('genre', 0)
+    movies = Movie.objects.all().order_by('-id')
+    genres = Genre.objects.all()
+
+    if genre_id:
+        movies = movies.filter(genre_id=genre_id)
+
+    if query:
+        movies = movies.filter(title__icontains=query)
+
+    return render(request, 'movies/browse_movies.html', {
+        'movies': movies,
+        'genres': genres,
+        'query': query,
+        'genre_id': int(genre_id),
     })
 
 # user login view:
