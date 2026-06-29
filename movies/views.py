@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Avg
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
 from .models import Movie, Review, Genre
@@ -9,8 +10,13 @@ from .models import Movie, Review, Genre
 # view for show all movies in home page
 def index(request):
     movies = Movie.objects.all().order_by('-id')
+    paginator = Paginator(movies, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, 'movies/index.html',{
         'movies': movies,
+        'page_obj': page_obj,
     })
 
 # for showing single movie detail with desc & reviews:
@@ -117,7 +123,7 @@ def movie_review(request, id):
 # user can see all there reviews in list:
 @login_required
 def user_reviews_list(request):
-    reviews = Review.objects.filter(user=request.user)
+    reviews = Review.objects.filter(user=request.user).order_by('-id')
 
     return render(request, 'movies/user_review_list.html', {
         'reviews': reviews,

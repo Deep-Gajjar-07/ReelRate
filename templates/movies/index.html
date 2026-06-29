@@ -6,7 +6,7 @@
 
     {% comment %} showing all available movies from DB in cards {% endcomment %}
     <div class="row m-4 d-flex row-cols-md-4 row-cols-sm-2 row-cols-lg-5 gap-4 justify-content-center">
-        {% for movie in movies %}
+        {% for movie in page_obj %}
             <div class="col mb-3">
                 <a href="{% url "movie_detail" movie.id %}" style="text-decoration: none;">
                     <div class="card h-100" style="width: 15rem;">
@@ -20,6 +20,34 @@
                 </a>
             </div>
         {% endfor %}
+    </div>
+
+    {% comment %} pagination for movie list (showing 8 movies per page){% endcomment %}
+    <div class="d-flex mt-5 justify-content-center">
+        <nav aria-label="Page navigation example">  
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </nav>
     </div>
 
 {% endblock %}
