@@ -16,7 +16,7 @@ A movie review webapp built using Django. Users can browse movies by movie title
 
 ## Setup Instructions
 
-1. Clone the respository <br>  ``` git clone https://github.com/Deep-Gajjar-07/ReelRate```
+1. Clone the respository <br>  ``` git clone https://github.com/Deep-Gajjar-07/ReelRate.git```
 2. Create a virtual environment <br> `python -m venv venv`
 3. Activate virtual environment <br> `venv\Scripts\activate`
 4. Install dependencies <br> `pip install -r requirements.txt `
